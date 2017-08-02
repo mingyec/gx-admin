@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # myapp
 
 > A Vue.js project
@@ -19,3 +20,7 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# gx-admin
+公司客户管理平台
+>>>>>>> bb8bf77cea4a5708b8dd369846ae99dc96340075

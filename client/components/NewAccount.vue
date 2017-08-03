@@ -10,24 +10,24 @@
                 <Col span="15">
                     <Row>
                         <Col span="15">
-                            <Form-item label="客户">
+                            <Form-item label="客户" prop="companyID">
                                 <Select v-model="newAccountForm.companyID" placeholder="请选择所属客户">
                                     <Option style="float:left;" v-for="key in companyItems" :value="key.companyID" :key="key.companyID">{{key.companyName}}</Option>
                                 </Select>
                             </Form-item>
                         </Col>
                     </Row>
-                    <Form-item label="账号">
+                    <Form-item label="账号" prop="username">
                         <Input v-model="newAccountForm.username" placeholder="请输入账号"></Input>
                     </Form-item>
-                    <Form-item label="密码" prop="passwd">
+                    <Form-item label="密码" prop="password">
                         <Input v-model="newAccountForm.password" type="password" placeholder="请输入密码"></Input>
                     </Form-item>
-                    <Form-item label="确认密码" prop="rpasswd">
+                    <Form-item label="确认密码" prop="rpassword">
                         <Input v-model="newAccountForm.rpassword" type="password" placeholder="请再输入一次密码进行确认"></Input>
                     </Form-item>
                     <Form-item style="float: left;">
-                        <Button type="primary">提交</Button>
+                        <Button type="primary" @click="submitForm(`newAccountForm`)">提交</Button>
                         <Button type="ghost" style="margin-left: 8px;">取消</Button>
                     </Form-item>
                 </Col>
@@ -41,16 +41,7 @@
     import api from '../router/axios'
     export default {
         data () {
-            let validateForm = (rule,value,callback) => {
-                console.info(rule);
-                if(!value || value === '') {
-                    callback(new Error('输入不能为空'));
-                } else {
-                    callback();
-                }
-            };
             const validatePasswd = (rule,value,callback) => {
-                console.info(value);
                 if(value === '') {
                     callback(new Error('输入不能为空'));
                 } else if(value !== this.newAccountForm.password) {
@@ -68,11 +59,18 @@
                     rpassword: ''
                 },
                 ruleCustom: {
-                    passwd: [{
-                        validator: validateForm,
+                    username: [{
+                        required: true,
+                        message: '帐号不能为空',
                         trigger: 'blur'
                     }],
-                    rpasswd: [{
+                    password: [{
+                        required: true,
+                        message: '密码不能为空',
+                        trigger: 'blur'
+                    }],
+                    rpassword: [{
+                        required: true,
                         validator: validatePasswd,
                         trigger: 'blur'
                     }]
@@ -87,9 +85,15 @@
             })
         },
         methods: {
-            comparePassword () {
-                let pw = this.newAccountForm.password;
-                let rpw = this.newAccountForm.rpassword;
+            submitForm (name) {
+                this.$refs[name].validate((valid) => {
+                    console.info(valid);
+                    if(valid) {
+                        this.$Message.success('提交成功！');
+                    }else {
+                        this.$Message.error('提交失败！');
+                    }
+                })
             }
         }
     }

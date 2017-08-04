@@ -18,5 +18,11 @@ export default {
     //获取用户列表
     getCompanyList(config) {
         return axios.get('/api/companyList')
+    },
+    //新增客户
+    addNewUsername(config) {
+        return axios.post('/api/newUsername', {
+            params: config
+        })
     }
 }

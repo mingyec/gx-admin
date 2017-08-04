@@ -89,7 +89,12 @@
                 this.$refs[name].validate((valid) => {
                     console.info(valid);
                     if(valid) {
-                        this.$Message.success('提交成功！');
+                        api.addNewUsername(this.newAccountForm).then(({
+                            data
+                        }) => {
+                            console.info(data);
+                            this.$Message.success('提交成功！');
+                        })
                     }else {
                         this.$Message.error('提交失败！');
                     }

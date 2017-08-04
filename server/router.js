@@ -44,6 +44,32 @@ router.get('/api/companyList', function(req, res, next) {
             });
         }
     });
+});
+
+router.post('/api/newUsername', function(req, res, next) {
+    console.info(req.body.params);
+    const params = req.body.params;
+    if (params != null) {
+        let companyID = params.companyID,
+            username = params.username,
+            password = params.password;
+        connection.query("INSERT INTO sys_users (customer_id,user_name,user_password) VALUES ( '" + companyID + "','" + username + "','" + password + "' )", (error, value) => {
+            if (error) {
+                console.error(error);
+                res.send({
+                    status: false
+                })
+            } else {
+                res.send({
+                    status: true
+                })
+            }
+        })
+    } else {
+        res.send({
+            status: false
+        })
+    }
 })
 
 module.exports = router;

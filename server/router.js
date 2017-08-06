@@ -52,8 +52,12 @@ router.post('/api/newUsername', function(req, res, next) {
     if (params != null) {
         let companyID = params.companyID,
             username = params.username,
-            password = params.password;
-        connection.query("INSERT INTO sys_users (customer_id,user_name,user_password) VALUES ( '" + companyID + "','" + username + "','" + password + "' )", (error, value) => {
+            password = params.password,
+            userdesc = params.userdesc;
+        let grammer = `INSERT INTO sys_users 
+                (customer_id,user_name,user_password) 
+                VALUES ( '${companyID}','${username}','${password}','${userdesc}' )`;
+        connection.query(grammer, (error) => {
             if (error) {
                 console.error(error);
                 res.send({

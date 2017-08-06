@@ -55,7 +55,7 @@
 </template>
 
 <script>
-    import api from '../router/axios'
+    import api from '../util/axios'
     export default {
         name: 'login',
         data () {

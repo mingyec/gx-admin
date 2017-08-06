@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import api from '../router/axios'
+    import api from '../util/axios'
     export default {
         data () {
             return {

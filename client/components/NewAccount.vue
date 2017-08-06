@@ -26,6 +26,9 @@
                     <Form-item label="确认密码" prop="rpassword">
                         <Input v-model="newAccountForm.rpassword" type="password" placeholder="请再输入一次密码进行确认"></Input>
                     </Form-item>
+                    <Form-item label="使用者">
+                        <Input v-model="newAccountForm.userdesc" placeholder="请填写使用者（非必须）"></Input>
+                    </Form-item>
                     <Form-item style="float: left;">
                         <Button type="primary" @click="submitForm(`newAccountForm`)">提交</Button>
                         <Button type="ghost" style="margin-left: 8px;">取消</Button>
@@ -38,7 +41,7 @@
 </template>
 
 <script>
-    import api from '../router/axios'
+    import api from '../util/axios'
     export default {
         data () {
             const validatePasswd = (rule,value,callback) => {
@@ -56,7 +59,8 @@
                     companyID: '',
                     username: '',
                     password: '',
-                    rpassword: ''
+                    rpassword: '',
+                    userdesc: ''
                 },
                 ruleCustom: {
                     username: [{
@@ -78,6 +82,7 @@
             }
         },
         created () {
+            //载入现有客户列表，配置于下拉框
             api.getCompanyList().then(({
                 data
             }) => {
@@ -86,7 +91,10 @@
         },
         methods: {
             submitForm (name) {
-                this.$refs[name].validate((valid) => {
+                this.$watch('newAccountForm.password',function (newVal,oldVal) {
+                    console.info(newVal);
+                })
+                /* this.$refs[name].validate((valid) => {
                     console.info(valid);
                     if(valid) {
                         api.addNewUsername(this.newAccountForm).then(({
@@ -98,7 +106,7 @@
                     }else {
                         this.$Message.error('提交失败！');
                     }
-                })
+                }) */
             }
         }
     }

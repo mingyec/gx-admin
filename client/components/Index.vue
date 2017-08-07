@@ -71,7 +71,7 @@
                 <Menu active-name="1" theme="dark" width="auto" @on-select="selectItem">
                     <div class="layout-logo-left">后台管理系统</div>
                     <Menu-item name="1" @select="selectItem">
-                        <Icon type="person-stalker"></Icon>
+                        <Icon type="android-list"></Icon>
                         <span class="layout-text">账号管理</span>
                     </Menu-item>
                     <Menu-item name="4">
@@ -79,8 +79,8 @@
                         <span class="layout-text">新增账号</span>
                     </Menu-item>
                     <Menu-item name="2">
-                        <Icon type="person-add" :size="iconSize"></Icon>
-                        <span class="layout-text">客户上线</span>
+                        <Icon type="person-stalker"></Icon>
+                        <span class="layout-text">用户管理</span>
                     </Menu-item>
                     <Menu-item name="3">
                         <Icon type="ios-analytics" :size="iconSize"></Icon>
@@ -126,6 +126,7 @@
                         this.$router.push('/index/user_manager');
                         break;
                     case "2":
+                        this.$router.push('/index/company');
                         break;
                     case "3":
                         console.info(name);

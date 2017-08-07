@@ -55,7 +55,7 @@ router.post('/api/newUsername', function(req, res, next) {
             password = params.password,
             userdesc = params.userdesc;
         let grammer = `INSERT INTO sys_users 
-                (customer_id,user_name,user_password) 
+                (customer_id,user_name,user_password,user_desc) 
                 VALUES ( '${companyID}','${username}','${password}','${userdesc}' )`;
         connection.query(grammer, (error) => {
             if (error) {

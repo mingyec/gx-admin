@@ -42,6 +42,7 @@
 
 <script>
     import api from '../util/axios'
+    import entry from '../util/md5'
     export default {
         data () {
             const validatePasswd = (rule,value,callback) => {
@@ -91,22 +92,28 @@
         },
         methods: {
             submitForm (name) {
-                this.$watch('newAccountForm.password',function (newVal,oldVal) {
-                    console.info(newVal);
-                })
-                /* this.$refs[name].validate((valid) => {
+                let psword = this.newAccountForm.password;
+                this.newAccountForm.password = entry.MD5_ENCRYPT(psword);
+                this.newAccountForm.rpassword = entry.MD5_ENCRYPT(psword)
+                this.$refs[name].validate((valid) => {
                     console.info(valid);
                     if(valid) {
                         api.addNewUsername(this.newAccountForm).then(({
                             data
                         }) => {
-                            console.info(data);
-                            this.$Message.success('提交成功！');
+                            const status = data.status;
+                            if(status) {
+                                this.$Message.success('提交成功！');
+                                //清空表单项
+                                this.$refs[name].resetFields();
+                            }else {
+                                this.$Message.error('提交失败！');
+                            }
                         })
                     }else {
-                        this.$Message.error('提交失败！');
+                        this.$Message.error('提交失败！请检查相应参数是否有误');
                     }
-                }) */
+                })
             }
         }
     }

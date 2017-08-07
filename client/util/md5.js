@@ -1,15 +1,10 @@
-function MD5_ENCRYPT(value) {
-    var hash = MD5(value);
-    return hash;
-}
-
 function MD5(str) {
-    x = str2blks_MD5(str);
+    let x = str2blks_MD5(str);
     var a = 1732584193;
     var b = -271733879;
     var c = -1732584194;
     var d = 271733878;
-    for (i = 0; i < x.length; i += 16) {
+    for (let i = 0; i < x.length; i += 16) {
         var olda = a;
         var oldb = b;
         var oldc = c;
@@ -89,8 +84,8 @@ function MD5(str) {
 var hex_chr = "0123456789abcdef";
 
 function rhex(num) {
-    str = "";
-    for (j = 0; j <= 3; j++) {
+    let str = "";
+    for (let j = 0; j <= 3; j++) {
         str += hex_chr.charAt((num >> (j * 8 + 4)) & 15) +
             hex_chr.charAt((num >> (j * 8)) & 15);
     }
@@ -98,8 +93,9 @@ function rhex(num) {
 }
 
 function str2blks_MD5(str) {
-    nblk = ((str.length + 8) >> 6) + 1;
-    blks = new Array(nblk * 16);
+    let nblk = ((str.length + 8) >> 6) + 1;
+    let blks = new Array(nblk * 16);
+    let i = 0;
     for (i = 0; i < nblk * 16; i++) {
         blks[i] = 0;
     }
@@ -139,4 +135,11 @@ function hh(a, b, c, d, x, s, t) {
 
 function ii(a, b, c, d, x, s, t) {
     return cmn(c ^ (b | (~d)), a, b, x, s, t);
+}
+
+export default {
+    MD5_ENCRYPT(value) {
+        var hash = MD5(value);
+        return hash;
+    }
 }

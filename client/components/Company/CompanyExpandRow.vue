@@ -1,13 +1,27 @@
-<template>
+    <template>
     <div>
         <Row>
-            <Col span="12">
-                <span class="expand-key">容量</span>
-                <span class="expand-value">{{ row.capacity }}</span>
+            <Col span="8">
+                <span class="expand-key">所属峰平谷组：</span>
+                <span class="expand-value">{{ row.elecType }}</span>
             </Col>
-            <Col span="12">
-                <span class="expand-key">地址</span>
-                <span class="expand-value">{{ row.address }}</span>
+            <Col span="8">
+                <span class="expand-key">服务方式：</span>
+                <span class="expand-value">{{ row.serviceID }}</span>
+            </Col>
+            <Col span="8">
+                <span class="expand-key">关联用户组：</span>
+                <span class="expand-value">{{ row.cGroupID }}</span>
+            </Col>
+        </Row>
+        <Row>
+            <Col span="8">
+                <span class="expand-key">经度：</span>
+                <span class="expand-value">{{ row.longitude }}</span>
+            </Col>
+            <Col span="8">
+                <span class="expand-key">纬度：</span>
+                <span class="expand-value">{{ row.latitude }}</span>
             </Col>
         </Row>
     </div>

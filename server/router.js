@@ -74,6 +74,34 @@ router.post('/api/newUsername', function(req, res, next) {
             status: false
         })
     }
+});
+
+router.get('/api/getCompanyDetailList', function(req, res, next) {
+    let sql = `SELECT
+        ci.customer_Id companyID,
+        ci.company_name companyName,
+        ci.rated_capacity capacity,
+        ci.address,
+        ci.longitude,
+        ci.latitude,
+        ci.communication_termial_mac terminalMac,
+        ci.electric_type elecTypeId,
+        et.type_name elecType,
+        ci.service_id serviceID
+    FROM
+        tb_customer_info ci,
+        tb_electric_type et
+    WHERE
+        ci.electric_type = et.type_id`;
+    connection.query(sql, (err, value) => {
+        if (err) {
+            console.error(err);
+        } else {
+            res.send({
+                data: value
+            })
+        }
+    })
 })
 
 module.exports = router;

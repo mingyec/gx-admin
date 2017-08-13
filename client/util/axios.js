@@ -24,5 +24,9 @@ export default {
         return axios.post('/api/newUsername', {
             params: config
         })
+    },
+    //获取所有客户的详细信息
+    getCompanyDetailList() {
+        return axios.get('/api/getCompanyDetailList');
     }
 }

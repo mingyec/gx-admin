@@ -2,19 +2,37 @@
     .layout {
         padding: 15px;
     }
+    .add-btn {
+        float: left;
+        margin: 5px 0;
+    }
 </style>
 
 <template>
-    <div  class="layout-content">
+    <div class="layout">
+        <Button @click="addCompany" type="primary" class="add-btn">新增客户</Button>
+        <div style="clear: both"></div>
         <Table :columns="companyList" :data="companyData"></Table>
     </div>
 </template>
 
 <script>
     import expandRow from './Company/CompanyExpandRow.vue'
+    import newCompany from './Company/NewCompany.vue'
+    import api from '../util/axios'
     export default {
         components: {
-            expandRow
+            expandRow,
+            newCompany
+        },
+        methods: {
+            addCompany() {
+                this.$Modal.confirm({
+                    render: (h, params) => {
+                        return h(newCompany)
+                    }
+                })
+            }
         },
         data() {
             return {
@@ -46,18 +64,16 @@
                     title: '地址',
                     key: 'address'
                 }],
-                companyData: [{
-                    companyID: 1,
-                    companyName: 'test',
-                    address: '地址',
-                    capacity: 1250
-                },{
-                    companyID: 1,
-                    companyName: 'test',
-                    address: '地址',
-                    capacity: 1250
-                }]
+                companyData: []
             }
+        },
+        created () {
+            //载入现有客户的详细信息列表
+            api.getCompanyDetailList().then(({
+                data
+            }) => {
+                this.companyData = data.data;
+            })
         }
     }
 </script>

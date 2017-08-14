@@ -92,7 +92,8 @@ router.get('/api/getCompanyDetailList', function(req, res, next) {
         tb_customer_info ci,
         tb_electric_type et
     WHERE
-        ci.electric_type = et.type_id`;
+        ci.electric_type = et.type_id
+        ORDER BY ci.customer_Id`;
     connection.query(sql, (err, value) => {
         if (err) {
             console.error(err);
